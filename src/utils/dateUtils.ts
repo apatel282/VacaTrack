@@ -13,6 +13,7 @@ import {
   isSameMonth,
   isSameYear,
   startOfDay,
+  endOfDay,
 } from 'date-fns';
 import { PTOEntry, Settings } from '../types';
 
@@ -108,6 +109,34 @@ export function calculatePTOSummary(
     remaining,
     projectedRemaining,
   };
+}
+
+export function normalizeEntryTypeByDate(entry: PTOEntry, now: Date = new Date()): PTOEntry {
+  if (entry.type !== 'planned') return entry;
+
+  const end = endOfDay(parseISO(entry.endDate));
+  if (!isAfter(now, end)) return entry;
+
+  return {
+    ...entry,
+    type: 'used',
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+export function normalizeEntriesByDate(
+  entries: PTOEntry[],
+  now: Date = new Date()
+): { entries: PTOEntry[]; updated: PTOEntry[] } {
+  const updated: PTOEntry[] = [];
+
+  const normalized = entries.map(entry => {
+    const next = normalizeEntryTypeByDate(entry, now);
+    if (next !== entry) updated.push(next);
+    return next;
+  });
+
+  return { entries: normalized, updated };
 }
 
 export function detectOverlaps(

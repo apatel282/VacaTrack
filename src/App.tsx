@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 import { Plus, List, CalendarDays } from 'lucide-react';
 import { storage } from './storage';
 import { Settings, PTOEntry, DEFAULT_SETTINGS } from './types';
-import { calculatePTOSummary } from './utils/dateUtils';
+import {
+  calculatePTOSummary,
+  normalizeEntriesByDate,
+  normalizeEntryTypeByDate,
+} from './utils/dateUtils';
 import { useTheme } from './hooks/useTheme';
 import { Header } from './components/Header';
 import { Summary } from './components/Summary';
@@ -44,7 +48,12 @@ function App() {
           storage.loadEntries(),
         ]);
         if (savedSettings) setSettings(savedSettings);
-        setEntries(savedEntries);
+
+        const { entries: normalized, updated } = normalizeEntriesByDate(savedEntries);
+        if (updated.length > 0) {
+          await Promise.all(updated.map(entry => storage.updateEntry(entry)));
+        }
+        setEntries(normalized);
       } catch (error) {
         console.error('Failed to load data:', error);
       } finally {
@@ -53,6 +62,24 @@ function App() {
     }
     loadData();
   }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    const interval = setInterval(() => {
+      setEntries(prev => {
+        const { entries: normalized, updated } = normalizeEntriesByDate(prev);
+        if (updated.length > 0) {
+          Promise.all(updated.map(entry => storage.updateEntry(entry))).catch(error => {
+            console.error('Failed to update auto-converted entries:', error);
+          });
+        }
+        return normalized;
+      });
+    }, 60 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, [isLoading]);
 
   const hasValidSettings = settings.periodStart && settings.periodEnd && settings.annualAllotment > 0;
 
@@ -66,14 +93,15 @@ function App() {
 
   // PTO Entry handlers
   const handleSaveEntry = async (entry: PTOEntry) => {
-    const isEditing = entries.some(e => e.id === entry.id);
+    const normalizedEntry = normalizeEntryTypeByDate(entry);
+    const isEditing = entries.some(e => e.id === normalizedEntry.id);
 
     if (isEditing) {
-      await storage.updateEntry(entry);
-      setEntries(prev => prev.map(e => e.id === entry.id ? entry : e));
+      await storage.updateEntry(normalizedEntry);
+      setEntries(prev => prev.map(e => e.id === normalizedEntry.id ? normalizedEntry : e));
     } else {
-      await storage.addEntry(entry);
-      setEntries(prev => [...prev, entry]);
+      await storage.addEntry(normalizedEntry);
+      setEntries(prev => [...prev, normalizedEntry]);
     }
   };
 

@@ -39,6 +39,8 @@ export default defineConfig({
         ]
       },
       workbox: {
+        // Workbox uses terser in production mode; disable to avoid build failure.
+        mode: 'development',
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
           {
