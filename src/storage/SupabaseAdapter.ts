@@ -80,7 +80,7 @@ export class SupabaseAdapter implements StorageAdapter {
   }
 
   async addEntry(entry: PTOEntry): Promise<void> {
-    await this.supabase
+    const { error } = await this.supabase
       .from('pto_entries')
       .insert({
         id: entry.id,
@@ -91,10 +91,15 @@ export class SupabaseAdapter implements StorageAdapter {
         created_at: entry.createdAt,
         updated_at: entry.updatedAt,
       });
+
+    if (error) {
+      console.error('Supabase addEntry error:', error);
+      throw error;
+    }
   }
 
   async updateEntry(entry: PTOEntry): Promise<void> {
-    await this.supabase
+    const { error } = await this.supabase
       .from('pto_entries')
       .update({
         type: entry.type,
@@ -104,13 +109,23 @@ export class SupabaseAdapter implements StorageAdapter {
         updated_at: new Date().toISOString(),
       })
       .eq('id', entry.id);
+
+    if (error) {
+      console.error('Supabase updateEntry error:', error);
+      throw error;
+    }
   }
 
   async deleteEntry(id: string): Promise<void> {
-    await this.supabase
+    const { error } = await this.supabase
       .from('pto_entries')
       .delete()
       .eq('id', id);
+
+    if (error) {
+      console.error('Supabase deleteEntry error:', error);
+      throw error;
+    }
   }
 
   async exportAll(): Promise<AppState> {
