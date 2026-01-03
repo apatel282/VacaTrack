@@ -61,6 +61,11 @@ export default defineConfig({
       }
     })
   ],
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8787'
+    }
+  },
   build: {
     outDir: 'dist',
     sourcemap: false,
@@ -70,8 +75,7 @@ export default defineConfig({
           'vendor-react': ['react', 'react-dom'],
           'vendor-ui': ['lucide-react'],
           'vendor-date': ['date-fns'],
-          'vendor-charts': ['recharts'],
-          'vendor-supabase': ['@supabase/supabase-js']
+          'vendor-charts': ['recharts']
         }
       }
     }

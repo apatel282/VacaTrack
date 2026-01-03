@@ -1,15 +1,11 @@
 import { LocalStorageAdapter } from './LocalStorageAdapter';
-import { SupabaseAdapter } from './SupabaseAdapter';
+import { PostgresApiAdapter } from './PostgresApiAdapter';
 import { StorageAdapter } from './StorageAdapter';
 
-// Check for Supabase configuration
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
-// Use Supabase if configured, otherwise fall back to localStorage
-export const storage: StorageAdapter =
-  supabaseUrl && supabaseAnonKey
-    ? new SupabaseAdapter(supabaseUrl, supabaseAnonKey)
-    : new LocalStorageAdapter();
+export const storage: StorageAdapter = apiBaseUrl
+  ? new PostgresApiAdapter(apiBaseUrl)
+  : new LocalStorageAdapter();
 
 export type { StorageAdapter } from './StorageAdapter';
