@@ -3,8 +3,8 @@
 
 You are a senior frontend engineer tasked with generating a **production-quality, single-page Progressive Web App (PWA)** called **VacaTrack**.
 
-This app must be **frontend-only**, run entirely in the browser, and be optimized for **iOS PWA usage**.  
-There is **no backend**. All persistence is local for now, but the architecture must be future-proofed so a backend (Supabase) can be added later without rewriting the UI or logic.
+This app must be optimized for **iOS PWA usage**.  
+The architecture must be future-proofed so a backend can be added later without rewriting the UI or logic.
 
 Do **not** include explanatory text, sample data, or tutorial content. Generate only the application structure and implementation.
 
@@ -101,7 +101,7 @@ This is **not** a calendar-year app.
   - Adding entries
   - Updating entries
   - Deleting entries
-- Structure the app so the adapter can later be swapped with Supabase without UI changes
+- Structure the app so the adapter can later be swapped without UI changes
 
 ---
 

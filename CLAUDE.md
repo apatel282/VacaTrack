@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-VacaTrack is a frontend-only, single-page Progressive Web App (PWA) for tracking PTO (Paid Time Off) across custom accrual periods. The app runs entirely in the browser with local storage, designed for a **single user** (no authentication). Architecturally prepared for future Supabase backend integration.
+VacaTrack is a single-page Progressive Web App (PWA) for tracking PTO (Paid Time Off) across custom accrual periods. The app supports local storage and a lightweight API-backed Postgres storage layer, designed for a **single user** (no authentication).
 
 **iOS PWA experience is the top priority** - the app must feel native when launched from iOS home screen.
 
@@ -22,7 +22,7 @@ VacaTrack is a frontend-only, single-page Progressive Web App (PWA) for tracking
 - No routing library (single page)
 - No global state library
 - No UI component frameworks
-- No backend/server/authentication
+- No authentication
 - Single user only
 
 ## Development Commands
@@ -89,7 +89,7 @@ The app uses a **storage abstraction pattern** to enable future backend migratio
 - Initial implementation uses Local Storage
 - All data operations go through this abstraction (load/save settings, CRUD for PTO entries)
 - UI components must never directly access localStorage - always use the adapter
-- Design so swapping to Supabase requires only changing the adapter, not UI code
+- Design so swapping storage backends requires only changing the adapter, not UI code
 
 ### Pure Business Logic
 
@@ -186,12 +186,12 @@ The iOS native PWA experience is the **primary target platform**:
 
 ## What NOT to Implement
 
-Do not add: backend, authentication, user accounts, holiday logic, half-day PTO, routing, analytics, carryover days, or third-party UI component frameworks.
+Do not add: authentication, user accounts, holiday logic, half-day PTO, routing, analytics, carryover days, or third-party UI component frameworks.
 
 ## Future Backend Integration Notes
 
-When adding Supabase:
+When adding a new storage backend:
 - Replace storage adapter implementation only
 - Keep UI components unchanged
-- Settings and PTO entries map directly to Supabase tables
+- Settings and PTO entries map directly to database tables
 - Maintain same pure utility functions for calculations
