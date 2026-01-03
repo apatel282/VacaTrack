@@ -93,27 +93,27 @@ export function CalendarView({ entries, settings, onEdit }: CalendarViewProps) {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+    <div className="bg-sand-100 dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-sand-200 dark:border-gray-700">
       {/* Month Navigation */}
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={handlePrevMonth}
           disabled={!canGoBack}
-          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="p-2 rounded-lg hover:bg-sand-100 dark:hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           aria-label="Previous month"
         >
-          <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+          <ChevronLeft className="w-5 h-5 text-ink-muted dark:text-gray-300" />
         </button>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-lg font-semibold text-ink dark:text-white">
           {format(currentMonth, 'MMMM yyyy')}
         </h3>
         <button
           onClick={handleNextMonth}
           disabled={!canGoForward}
-          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="p-2 rounded-lg hover:bg-sand-100 dark:hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           aria-label="Next month"
         >
-          <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+          <ChevronRight className="w-5 h-5 text-ink-muted dark:text-gray-300" />
         </button>
       </div>
 
@@ -122,7 +122,7 @@ export function CalendarView({ entries, settings, onEdit }: CalendarViewProps) {
         {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
           <div
             key={i}
-            className="text-center text-xs font-medium text-gray-500 dark:text-gray-400 py-2"
+            className="text-center text-xs font-medium text-ink-muted dark:text-gray-400 py-2"
           >
             {day}
           </div>
@@ -159,9 +159,9 @@ export function CalendarView({ entries, settings, onEdit }: CalendarViewProps) {
                 aspect-square rounded-lg text-sm font-medium relative
                 flex flex-col items-center justify-center
                 transition-colors
-                ${weekend ? 'text-gray-400 dark:text-gray-500' : 'text-gray-700 dark:text-gray-200'}
+                ${weekend ? 'text-ink-muted dark:text-gray-500' : 'text-ink dark:text-gray-200'}
                 ${!isInPeriod ? 'opacity-30' : ''}
-                ${dayEntries.length > 0 ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}
+                ${dayEntries.length > 0 ? 'cursor-pointer hover:bg-sand-50 dark:hover:bg-gray-700' : ''}
                 ${hasUsed ? 'bg-primary-100 dark:bg-primary-900/50' : ''}
                 ${hasPlanned && !hasUsed ? 'bg-primary-50 dark:bg-primary-900/30' : ''}
               `}
@@ -183,14 +183,14 @@ export function CalendarView({ entries, settings, onEdit }: CalendarViewProps) {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-sand-200 dark:border-gray-700">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-primary-500" />
-          <span className="text-xs text-gray-500 dark:text-gray-400">Used</span>
+          <span className="text-xs text-ink-muted dark:text-gray-400">Used</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-primary-300" />
-          <span className="text-xs text-gray-500 dark:text-gray-400">Planned</span>
+          <span className="text-xs text-ink-muted dark:text-gray-400">Planned</span>
         </div>
       </div>
     </div>

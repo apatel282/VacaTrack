@@ -61,14 +61,14 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
       <div className="space-y-6">
         {/* Tracking Period */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-ink-muted dark:text-gray-300 mb-2">
             Tracking Period Start
           </label>
           <div className="flex gap-2">
             <select
               value={startMonth}
               onChange={(e) => setStartMonth(parseInt(e.target.value))}
-              className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-sand-50 dark:bg-gray-700 text-ink dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             >
               {months.map((month, i) => (
                 <option key={month} value={i + 1}>{month}</option>
@@ -77,7 +77,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
             <select
               value={startYear}
               onChange={(e) => setStartYear(parseInt(e.target.value))}
-              className="w-24 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-24 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-sand-50 dark:bg-gray-700 text-ink dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             >
               {years.map((year) => (
                 <option key={year} value={year}>{year}</option>
@@ -87,14 +87,14 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-ink-muted dark:text-gray-300 mb-2">
             Tracking Period End
           </label>
           <div className="flex gap-2">
             <select
               value={endMonth}
               onChange={(e) => setEndMonth(parseInt(e.target.value))}
-              className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-sand-50 dark:bg-gray-700 text-ink dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             >
               {months.map((month, i) => (
                 <option key={month} value={i + 1}>{month}</option>
@@ -103,7 +103,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
             <select
               value={endYear}
               onChange={(e) => setEndYear(parseInt(e.target.value))}
-              className="w-24 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-24 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-sand-50 dark:bg-gray-700 text-ink dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             >
               {years.map((year) => (
                 <option key={year} value={year}>{year}</option>
@@ -117,7 +117,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
 
         {/* Annual Allotment */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-ink-muted dark:text-gray-300 mb-2">
             Annual PTO Allotment (days)
           </label>
           <input
@@ -126,7 +126,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
             max="365"
             value={allotment}
             onChange={(e) => setAllotment(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-sand-50 dark:bg-gray-700 text-ink dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             placeholder="e.g., 20"
           />
           {parseInt(allotment) <= 0 && (
@@ -136,7 +136,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
 
         {/* Theme */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-ink-muted dark:text-gray-300 mb-2">
             Theme
           </label>
           <div className="flex gap-2">
@@ -145,7 +145,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
               className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-colors ${
                 theme === 'light'
                   ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                  : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+                  : 'border-gray-300 dark:border-gray-600 hover:bg-sand-50 dark:hover:bg-gray-700'
               }`}
             >
               <Sun className="w-4 h-4" />
@@ -156,7 +156,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
               className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-colors ${
                 theme === 'dark'
                   ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                  : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+                  : 'border-gray-300 dark:border-gray-600 hover:bg-sand-50 dark:hover:bg-gray-700'
               }`}
             >
               <Moon className="w-4 h-4" />
@@ -167,7 +167,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
               className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-colors ${
                 theme === 'system'
                   ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                  : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+                  : 'border-gray-300 dark:border-gray-600 hover:bg-sand-50 dark:hover:bg-gray-700'
               }`}
             >
               <Monitor className="w-4 h-4" />
