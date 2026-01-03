@@ -61,14 +61,14 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
       <div className="space-y-6">
         {/* Tracking Period */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-100 mb-2">
             Tracking Period Start
           </label>
           <div className="flex gap-2">
             <select
               value={startMonth}
               onChange={(e) => setStartMonth(parseInt(e.target.value))}
-              className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="flex-1 px-3 py-2 rounded-lg border border-bg-300 dark:border-bg-300 bg-bg-100 dark:bg-bg-100 text-text-100 dark:text-text-100 focus:ring-2 focus:ring-accent-200 focus:border-accent-200"
             >
               {months.map((month, i) => (
                 <option key={month} value={i + 1}>{month}</option>
@@ -77,7 +77,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
             <select
               value={startYear}
               onChange={(e) => setStartYear(parseInt(e.target.value))}
-              className="w-24 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-24 px-3 py-2 rounded-lg border border-bg-300 dark:border-bg-300 bg-bg-100 dark:bg-bg-100 text-text-100 dark:text-text-100 focus:ring-2 focus:ring-accent-200 focus:border-accent-200"
             >
               {years.map((year) => (
                 <option key={year} value={year}>{year}</option>
@@ -87,14 +87,14 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-100 mb-2">
             Tracking Period End
           </label>
           <div className="flex gap-2">
             <select
               value={endMonth}
               onChange={(e) => setEndMonth(parseInt(e.target.value))}
-              className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="flex-1 px-3 py-2 rounded-lg border border-bg-300 dark:border-bg-300 bg-bg-100 dark:bg-bg-100 text-text-100 dark:text-text-100 focus:ring-2 focus:ring-accent-200 focus:border-accent-200"
             >
               {months.map((month, i) => (
                 <option key={month} value={i + 1}>{month}</option>
@@ -103,7 +103,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
             <select
               value={endYear}
               onChange={(e) => setEndYear(parseInt(e.target.value))}
-              className="w-24 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-24 px-3 py-2 rounded-lg border border-bg-300 dark:border-bg-300 bg-bg-100 dark:bg-bg-100 text-text-100 dark:text-text-100 focus:ring-2 focus:ring-accent-200 focus:border-accent-200"
             >
               {years.map((year) => (
                 <option key={year} value={year}>{year}</option>
@@ -117,7 +117,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
 
         {/* Annual Allotment */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-100 mb-2">
             Annual PTO Allotment (days)
           </label>
           <input
@@ -126,7 +126,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
             max="365"
             value={allotment}
             onChange={(e) => setAllotment(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 rounded-lg border border-bg-300 dark:border-bg-300 bg-bg-100 dark:bg-bg-100 text-text-100 dark:text-text-100 focus:ring-2 focus:ring-accent-200 focus:border-accent-200"
             placeholder="e.g., 20"
           />
           {parseInt(allotment) <= 0 && (
@@ -136,39 +136,36 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
 
         {/* Theme */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-100 mb-2">
             Theme
           </label>
           <div className="flex gap-2">
             <button
               onClick={() => setTheme('light')}
-              className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-colors ${
-                theme === 'light'
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                  : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
-              }`}
+              className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-colors ${theme === 'light'
+                  ? 'border-accent-200 bg-accent-200 text-white'
+                  : 'border-bg-300 dark:border-bg-300 text-text-200 dark:text-text-200 hover:bg-bg-100 dark:hover:bg-bg-200'
+                }`}
             >
               <Sun className="w-4 h-4" />
               <span className="text-sm">Light</span>
             </button>
             <button
               onClick={() => setTheme('dark')}
-              className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-colors ${
-                theme === 'dark'
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                  : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
-              }`}
+              className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-colors ${theme === 'dark'
+                  ? 'border-accent-200 bg-accent-200 text-white'
+                  : 'border-bg-300 dark:border-bg-300 text-text-200 dark:text-text-200 hover:bg-bg-100 dark:hover:bg-bg-200'
+                }`}
             >
               <Moon className="w-4 h-4" />
               <span className="text-sm">Dark</span>
             </button>
             <button
               onClick={() => setTheme('system')}
-              className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-colors ${
-                theme === 'system'
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                  : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
-              }`}
+              className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-colors ${theme === 'system'
+                  ? 'border-accent-200 bg-accent-200 text-white'
+                  : 'border-bg-300 dark:border-bg-300 text-text-200 dark:text-text-200 hover:bg-bg-100 dark:hover:bg-bg-200'
+                }`}
             >
               <Monitor className="w-4 h-4" />
               <span className="text-sm">Auto</span>
@@ -180,7 +177,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
         <button
           onClick={handleSave}
           disabled={!isValid}
-          className="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 dark:disabled:bg-gray-600 text-white font-medium rounded-lg transition-colors disabled:cursor-not-allowed"
+          className="w-full py-3 px-4 bg-accent-200 hover:bg-accent-200/90 disabled:bg-bg-300 dark:disabled:bg-bg-300 text-white font-medium rounded-lg transition-colors disabled:cursor-not-allowed"
         >
           Save Settings
         </button>

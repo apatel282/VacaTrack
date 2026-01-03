@@ -135,14 +135,14 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-bg-200 dark:bg-bg-100 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-primary-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-bg-200 dark:bg-bg-100">
       <Header
         settings={settings}
         onOpenSettings={() => setIsSettingsOpen(true)}
@@ -163,22 +163,20 @@ function App() {
             <div className="flex gap-2">
               <button
                 onClick={() => setViewMode('list')}
-                className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg border font-medium transition-colors ${
-                  viewMode === 'list'
-                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
-                }`}
+                className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg border font-medium transition-colors ${viewMode === 'list'
+                    ? 'border-accent-200 bg-accent-200 text-white'
+                    : 'border-bg-300 dark:border-bg-300 text-text-200 dark:text-text-200 hover:bg-bg-100 dark:hover:bg-bg-200'
+                  }`}
               >
                 <List className="w-4 h-4" />
                 List
               </button>
               <button
                 onClick={() => setViewMode('calendar')}
-                className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg border font-medium transition-colors ${
-                  viewMode === 'calendar'
-                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
-                }`}
+                className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg border font-medium transition-colors ${viewMode === 'calendar'
+                    ? 'border-accent-200 bg-accent-200 text-white'
+                    : 'border-bg-300 dark:border-bg-300 text-text-200 dark:text-text-200 hover:bg-bg-100 dark:hover:bg-bg-200'
+                  }`}
               >
                 <CalendarDays className="w-4 h-4" />
                 Calendar

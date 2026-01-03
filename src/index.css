@@ -2,6 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary-100: #d4eaf7;
+  --primary-200: #b6ccd8;
+  --primary-300: #3b3c3d;
+  --primary-500: #00668c;
+  --primary-600: #005575;
+  --primary-700: #00445e;
+
+  --accent-100: #71c4ef;
+  --accent-200: #00668c;
+
+  --text-100: #1d1c1c;
+  --text-200: #313d44;
+
+  --bg-100: #fffefb;
+  --bg-200: #f5f4f1;
+  --bg-300: #cccbc8;
+}
+
+.dark {
+  /* Restore original Tailwind Indigo colors for dark mode */
+  --primary-100: #e0e7ff;
+  /* indigo-100 */
+  --primary-200: #c7d2fe;
+  /* indigo-200 */
+  --primary-300: #a5b4fc;
+  /* indigo-300 */
+  --primary-500: #6366f1;
+  /* indigo-500 */
+  --primary-600: #4f46e5;
+  /* indigo-600 */
+  --primary-700: #4338ca;
+  /* indigo-700 */
+
+  --accent-100: #a5b4fc;
+  /* indigo-300 */
+  --accent-200: #6366f1;
+  /* indigo-500 */
+
+  --text-100: #f9fafb;
+  /* gray-50 */
+  --text-200: #9ca3af;
+  /* gray-400 */
+
+  --bg-100: #111827;
+  /* gray-900 */
+  --bg-200: #1f2937;
+  /* gray-800 */
+  --bg-300: #374151;
+  /* gray-700 */
+}
+
 /* Hide scrollbars for native app feel */
 * {
   -ms-overflow-style: none;
@@ -52,6 +104,7 @@ body {
     transform: translateY(100%);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -63,6 +116,7 @@ body {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -107,12 +161,13 @@ input[type="number"] {
 
 /* Focus visible for accessibility */
 :focus-visible {
-  outline: 2px solid #6366f1;
+  outline: 2px solid var(--accent-200);
   outline-offset: 2px;
 }
 
 /* Touch-friendly targets */
 @media (pointer: coarse) {
+
   button,
   select,
   input {

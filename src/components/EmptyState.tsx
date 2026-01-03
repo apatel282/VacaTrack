@@ -12,10 +12,10 @@ export function EmptyState({ hasSettings, onOpenSettings }: EmptyStateProps) {
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-100 dark:bg-amber-900/30 mb-4">
           <AlertCircle className="w-8 h-8 text-amber-600 dark:text-amber-400" />
         </div>
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        <h2 className="text-lg font-semibold text-text-100 dark:text-text-100 mb-2">
           Welcome to VacaTrack
         </h2>
-        <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">
+        <p className="text-text-200 dark:text-text-200 mb-6 max-w-sm mx-auto">
           Set up your tracking period and PTO allotment to get started.
         </p>
         <button

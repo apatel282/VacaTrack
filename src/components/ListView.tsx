@@ -17,9 +17,9 @@ export function ListView({ entries, onEdit, onDelete }: ListViewProps) {
   if (sortedEntries.length === 0) {
     return (
       <div className="text-center py-12">
-        <Calendar className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-        <p className="text-gray-500 dark:text-gray-400">No PTO entries yet</p>
-        <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
+        <Calendar className="w-12 h-12 text-bg-300 dark:text-bg-300 mx-auto mb-3" />
+        <p className="text-text-200 dark:text-text-200">No PTO entries yet</p>
+        <p className="text-sm text-bg-300 dark:text-bg-300 mt-1">
           Add your first entry above
         </p>
       </div>
@@ -53,42 +53,40 @@ function EntryCard({
   const isUsed = entry.type === 'used';
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+    <div className="bg-bg-100 dark:bg-bg-100 rounded-xl p-4 shadow-sm border border-bg-300 dark:border-bg-300">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3 min-w-0 flex-1">
           <div
-            className={`p-2 rounded-lg flex-shrink-0 ${
-              isUsed
-                ? 'bg-primary-100 dark:bg-primary-900/50'
-                : 'bg-gray-100 dark:bg-gray-700'
-            }`}
+            className={`p-2 rounded-lg flex-shrink-0 ${isUsed
+              ? 'bg-primary-100 dark:bg-primary-500/30'
+              : 'bg-bg-200 dark:bg-bg-300'
+              }`}
           >
             {isUsed ? (
-              <CheckCircle className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+              <CheckCircle className="w-5 h-5 text-accent-200 dark:text-accent-200" />
             ) : (
-              <Calendar className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+              <Calendar className="w-5 h-5 text-text-200 dark:text-text-200" />
             )}
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
               <span
-                className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                  isUsed
-                    ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300'
-                    : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
-                }`}
+                className={`text-xs font-medium px-2 py-0.5 rounded-full ${isUsed
+                  ? 'bg-accent-200 text-white dark:bg-accent-200 dark:text-white'
+                  : 'bg-bg-200 text-text-200 dark:bg-bg-300 dark:text-text-100'
+                  }`}
               >
                 {isUsed ? 'Used' : 'Planned'}
               </span>
-              <span className="text-sm font-semibold text-gray-900 dark:text-white">
+              <span className="text-sm font-semibold text-text-100">
                 {days} day{days !== 1 ? 's' : ''}
               </span>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+            <p className="text-sm text-text-200 dark:text-text-200 mt-1">
               {formatDateRange(entry.startDate, entry.endDate)}
             </p>
             {entry.notes && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 truncate">
+              <p className="text-sm text-text-200 dark:text-text-200 mt-1 truncate opacity-70">
                 {entry.notes}
               </p>
             )}
@@ -97,17 +95,17 @@ function EntryCard({
         <div className="flex items-center gap-1 flex-shrink-0">
           <button
             onClick={onEdit}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="p-2 rounded-lg hover:bg-bg-200 dark:hover:bg-bg-300 transition-colors"
             aria-label="Edit entry"
           >
-            <Edit2 className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+            <Edit2 className="w-4 h-4 text-text-200 dark:text-text-200" />
           </button>
           <button
             onClick={onDelete}
             className="p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
             aria-label="Delete entry"
           >
-            <Trash2 className="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-red-500" />
+            <Trash2 className="w-4 h-4 text-text-200 dark:text-text-200 hover:text-red-500" />
           </button>
         </div>
       </div>

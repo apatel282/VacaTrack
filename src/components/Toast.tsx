@@ -44,9 +44,8 @@ export function Toast({ message, action, duration = 10000, onClose }: ToastProps
 
   return (
     <div
-      className={`fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-80 bg-gray-800 dark:bg-gray-700 text-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 z-50 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-      }`}
+      className={`fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-80 bg-bg-300 dark:bg-bg-300 text-text-100 dark:text-text-100 rounded-lg shadow-lg overflow-hidden transition-all duration-300 z-50 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <div className="flex items-center justify-between p-3">
@@ -55,7 +54,7 @@ export function Toast({ message, action, duration = 10000, onClose }: ToastProps
           {action && (
             <button
               onClick={handleAction}
-              className="text-sm font-medium text-primary-400 hover:text-primary-300 transition-colors"
+              className="text-sm font-medium text-accent-200 dark:text-accent-200 hover:opacity-80 transition-colors"
             >
               {action.label}
             </button>
@@ -65,14 +64,14 @@ export function Toast({ message, action, duration = 10000, onClose }: ToastProps
               setIsVisible(false);
               setTimeout(onClose, 300);
             }}
-            className="p-1 hover:bg-gray-600 rounded transition-colors"
+            className="p-1 hover:bg-bg-200 dark:hover:bg-bg-300 rounded transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
       </div>
       {/* Progress bar */}
-      <div className="h-1 bg-gray-600">
+      <div className="h-1 bg-bg-200 dark:bg-bg-200">
         <div
           className="h-full bg-primary-500 transition-all duration-50"
           style={{ width: `${progress}%` }}
