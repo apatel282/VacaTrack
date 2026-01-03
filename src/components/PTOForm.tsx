@@ -123,7 +123,7 @@ export function PTOForm({
       <div className="space-y-4">
         {/* Type Toggle */}
         <div>
-          <label className="block text-sm font-medium text-ink-muted dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Type
           </label>
           <div className="flex gap-2">
@@ -132,7 +132,7 @@ export function PTOForm({
               className={`flex-1 py-2 px-4 rounded-lg border font-medium transition-colors ${
                 type === 'planned'
                   ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                  : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-sand-50 dark:hover:bg-gray-700'
+                  : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
             >
               Planned
@@ -142,7 +142,7 @@ export function PTOForm({
               className={`flex-1 py-2 px-4 rounded-lg border font-medium transition-colors ${
                 type === 'used'
                   ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                  : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-sand-50 dark:hover:bg-gray-700'
+                  : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
             >
               Used
@@ -153,7 +153,7 @@ export function PTOForm({
         {/* Date Inputs */}
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-medium text-ink-muted dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Start Date
             </label>
             <input
@@ -165,11 +165,11 @@ export function PTOForm({
                   setEndDate(e.target.value);
                 }
               }}
-              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-sand-50 dark:bg-gray-700 text-ink dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-ink-muted dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               End Date
             </label>
             <input
@@ -177,18 +177,18 @@ export function PTOForm({
               value={endDate}
               min={startDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-sand-50 dark:bg-gray-700 text-ink dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
         </div>
 
         {/* Day Count */}
         {isValidDates && (
-          <div className="bg-sand-50 dark:bg-gray-700/50 rounded-lg p-3 text-center">
+          <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 text-center">
             <span className="text-2xl font-bold text-primary-600 dark:text-primary-400">
               {periodWeekdayCount}
             </span>
-            <span className="text-ink-muted dark:text-gray-400 ml-2">
+            <span className="text-gray-500 dark:text-gray-400 ml-2">
               PTO day{periodWeekdayCount !== 1 ? 's' : ''}
               {periodWeekdayCount !== weekdayCount && (
                 <span className="text-xs"> ({weekdayCount} total, {periodWeekdayCount} in period)</span>
@@ -218,14 +218,14 @@ export function PTOForm({
 
         {/* Notes */}
         <div>
-          <label className="block text-sm font-medium text-ink-muted dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Notes (optional)
           </label>
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             rows={2}
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-sand-50 dark:bg-gray-700 text-ink dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
             placeholder="e.g., Summer vacation"
           />
         </div>

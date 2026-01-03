@@ -135,14 +135,14 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-sand-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-primary-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-sand-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header
         settings={settings}
         onOpenSettings={() => setIsSettingsOpen(true)}
@@ -166,7 +166,7 @@ function App() {
                 className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg border font-medium transition-colors ${
                   viewMode === 'list'
                     ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-sand-50 dark:hover:bg-gray-700'
+                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                 }`}
               >
                 <List className="w-4 h-4" />
@@ -177,7 +177,7 @@ function App() {
                 className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg border font-medium transition-colors ${
                   viewMode === 'calendar'
                     ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-sand-50 dark:hover:bg-gray-700'
+                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                 }`}
               >
                 <CalendarDays className="w-4 h-4" />

@@ -53,20 +53,20 @@ function EntryCard({
   const isUsed = entry.type === 'used';
 
   return (
-    <div className="bg-sand-100 dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-sand-200 dark:border-gray-700">
+    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3 min-w-0 flex-1">
           <div
             className={`p-2 rounded-lg flex-shrink-0 ${
               isUsed
                 ? 'bg-primary-100 dark:bg-primary-900/50'
-                : 'bg-sand-50 dark:bg-gray-700'
+                : 'bg-gray-100 dark:bg-gray-700'
             }`}
           >
             {isUsed ? (
               <CheckCircle className="w-5 h-5 text-primary-600 dark:text-primary-400" />
             ) : (
-              <Calendar className="w-5 h-5 text-ink-muted dark:text-gray-400" />
+              <Calendar className="w-5 h-5 text-gray-500 dark:text-gray-400" />
             )}
           </div>
           <div className="min-w-0 flex-1">
@@ -75,20 +75,20 @@ function EntryCard({
                 className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                   isUsed
                     ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300'
-                    : 'bg-sand-50 text-ink-muted dark:bg-gray-700 dark:text-gray-400'
+                    : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
                 }`}
               >
                 {isUsed ? 'Used' : 'Planned'}
               </span>
-              <span className="text-sm font-semibold text-ink dark:text-white">
+              <span className="text-sm font-semibold text-gray-900 dark:text-white">
                 {days} day{days !== 1 ? 's' : ''}
               </span>
             </div>
-            <p className="text-sm text-ink-muted dark:text-gray-300 mt-1">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
               {formatDateRange(entry.startDate, entry.endDate)}
             </p>
             {entry.notes && (
-              <p className="text-sm text-ink-muted dark:text-gray-400 mt-1 truncate">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 truncate">
                 {entry.notes}
               </p>
             )}
@@ -97,10 +97,10 @@ function EntryCard({
         <div className="flex items-center gap-1 flex-shrink-0">
           <button
             onClick={onEdit}
-            className="p-2 rounded-lg hover:bg-sand-100 dark:hover:bg-gray-700 transition-colors"
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             aria-label="Edit entry"
           >
-            <Edit2 className="w-4 h-4 text-ink-muted dark:text-gray-400" />
+            <Edit2 className="w-4 h-4 text-gray-500 dark:text-gray-400" />
           </button>
           <button
             onClick={onDelete}
