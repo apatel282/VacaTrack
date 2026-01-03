@@ -88,7 +88,7 @@ define(['./workbox-ca84f546'], (function (workbox) { 'use strict';
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   }, {
     "url": "index.html",
-    "revision": "819dee5ccc32b3b2dbab7024daef4137"
+    "revision": "4cef8b54e266952f0e1a3e7a710933df"
   }, {
     "url": "favicon.ico",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
@@ -97,9 +97,6 @@ define(['./workbox-ca84f546'], (function (workbox) { 'use strict';
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   }, {
     "url": "assets/vendor-ui-Bx0CoKBj.js",
-    "revision": null
-  }, {
-    "url": "assets/vendor-supabase-CIvuJI4W.js",
     "revision": null
   }, {
     "url": "assets/vendor-react-BRY8hXab.js",
@@ -111,7 +108,7 @@ define(['./workbox-ca84f546'], (function (workbox) { 'use strict';
     "url": "assets/vendor-charts-BAy86pmT.js",
     "revision": null
   }, {
-    "url": "assets/index-Cn32jJ7y.js",
+    "url": "assets/index-xrlj3gvm.js",
     "revision": null
   }, {
     "url": "assets/index-CVSAi0hi.css",
