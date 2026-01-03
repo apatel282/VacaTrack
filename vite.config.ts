@@ -63,6 +63,17 @@ export default defineConfig({
   ],
   build: {
     outDir: 'dist',
-    sourcemap: false
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-ui': ['lucide-react'],
+          'vendor-date': ['date-fns'],
+          'vendor-charts': ['recharts'],
+          'vendor-supabase': ['@supabase/supabase-js']
+        }
+      }
+    }
   }
 })
