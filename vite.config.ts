@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
       manifest: {
         name: 'VacaTrack',
         short_name: 'VacaTrack',
@@ -39,8 +39,6 @@ export default defineConfig({
         ]
       },
       workbox: {
-        // Workbox uses terser in production mode; disable to avoid build failure.
-        mode: 'development',
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
           {
