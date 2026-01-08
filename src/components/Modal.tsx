@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 
 interface ModalProps {
@@ -9,35 +9,39 @@ interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, title, children }: ModalProps) {
-  const [isRendered, setIsRendered] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const modalRef = useRef<HTMLDivElement>(null);
+  const [shouldRender, setShouldRender] = useState(false);
+  const [shouldShow, setShouldShow] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      setIsRendered(true);
-      // Wait for next frame to ensure element is mounted before animating
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setIsAnimating(true);
-        });
-      });
+      // Mount the component
+      setShouldRender(true);
+
       // Prevent body scroll on iOS
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
-    } else {
-      setIsAnimating(false);
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-    }
 
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-    };
+      // Start animation after mount (next frame)
+      const timer = setTimeout(() => {
+        setShouldShow(true);
+      }, 10);
+
+      return () => clearTimeout(timer);
+    } else {
+      // Start exit animation
+      setShouldShow(false);
+
+      // Unmount after animation completes
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+      }, 300); // Match transition duration
+
+      return () => clearTimeout(timer);
+    }
   }, [isOpen]);
 
   useEffect(() => {
@@ -51,11 +55,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
     }
   }, [isOpen, onClose]);
 
-  const onAnimationEnd = () => {
-    if (!isAnimating) setIsRendered(false);
-  };
-
-  if (!isRendered) return null;
+  if (!shouldRender) return null;
 
   return (
     <div
@@ -66,18 +66,21 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
     >
       {/* Backdrop */}
       <div
-        className={`absolute inset-0 bg-black/50 backdrop-blur-sm ${isAnimating ? 'animate-fade-in' : 'animate-fade-out'}`}
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 ease-out"
+        style={{ opacity: shouldShow ? 1 : 0 }}
         aria-hidden="true"
       />
 
       {/* Modal */}
       <div
-        ref={modalRef}
-        onAnimationEnd={onAnimationEnd}
-        className={`relative w-full sm:max-w-md bg-bg-100 dark:bg-bg-100 rounded-t-2xl sm:rounded-2xl shadow-xl max-h-[90vh] overflow-hidden flex flex-col ${
-          isAnimating ? 'animate-slide-up sm:animate-fade-in' : 'animate-slide-down sm:animate-fade-out'
-        }`}
-        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        className="relative w-full sm:max-w-md bg-bg-100 dark:bg-bg-100 rounded-t-2xl sm:rounded-2xl shadow-xl max-h-[90vh] overflow-hidden flex flex-col transition-all duration-300 ease-out"
+        style={{
+          paddingBottom: 'env(safe-area-inset-bottom)',
+          opacity: shouldShow ? 1 : 0,
+          transform: shouldShow
+            ? 'translateY(0) scale(1)'
+            : 'translateY(20px) scale(0.95)',
+        }}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-bg-300 dark:border-bg-300">
