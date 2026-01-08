@@ -15,6 +15,7 @@ create table if not exists pto_entries (
   type text not null check (type in ('used', 'planned')),
   start_date date not null,
   end_date date not null,
+  days integer, -- Manual override for PTO days, if null calculate from dates
   notes text,
   created_at timestamptz not null,
   updated_at timestamptz not null

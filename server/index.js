@@ -134,6 +134,7 @@ app.get('/api/entries', async (_req, res) => {
       type: row.type,
       startDate: normalizeDate(row.start_date),
       endDate: normalizeDate(row.end_date),
+      days: row.days ?? undefined, // Include days field, undefined if null
       notes: row.notes || '',
       createdAt: normalizeTimestamp(row.created_at),
       updatedAt: normalizeTimestamp(row.updated_at),
@@ -153,15 +154,17 @@ app.post('/api/entries', async (req, res) => {
         type,
         start_date,
         end_date,
+        days,
         notes,
         created_at,
         updated_at
-      ) values ($1, $2, $3, $4, $5, $6, $7)`,
+      ) values ($1, $2, $3, $4, $5, $6, $7, $8)`,
       [
         entry.id,
         entry.type,
         entry.startDate,
         entry.endDate,
+        entry.days ?? null, // Store days if provided, null otherwise
         entry.notes || '',
         entry.createdAt,
         entry.updatedAt,
@@ -182,13 +185,15 @@ app.put('/api/entries/:id', async (req, res) => {
        set type = $1,
            start_date = $2,
            end_date = $3,
-           notes = $4,
-           updated_at = $5
-       where id = $6`,
+           days = $4,
+           notes = $5,
+           updated_at = $6
+       where id = $7`,
       [
         entry.type,
         entry.startDate,
         entry.endDate,
+        entry.days ?? null, // Update days field
         entry.notes || '',
         entry.updatedAt || new Date().toISOString(),
         id,
@@ -238,6 +243,7 @@ app.get('/api/state', async (_req, res) => {
       type: row.type,
       startDate: normalizeDate(row.start_date),
       endDate: normalizeDate(row.end_date),
+      days: row.days ?? undefined, // Include days field
       notes: row.notes || '',
       createdAt: normalizeTimestamp(row.created_at),
       updatedAt: normalizeTimestamp(row.updated_at),
@@ -309,13 +315,14 @@ app.post('/api/state', async (req, res) => {
       let index = 1;
       for (const entry of state.entries) {
         insertValues.push(
-          `($${index++}, $${index++}, $${index++}, $${index++}, $${index++}, $${index++}, $${index++})`
+          `($${index++}, $${index++}, $${index++}, $${index++}, $${index++}, $${index++}, $${index++}, $${index++})`
         );
         params.push(
           entry.id,
           entry.type,
           entry.startDate,
           entry.endDate,
+          entry.days ?? null, // Handle days field in bulk import
           entry.notes || '',
           entry.createdAt,
           entry.updatedAt
@@ -327,6 +334,7 @@ app.post('/api/state', async (req, res) => {
           type,
           start_date,
           end_date,
+          days,
           notes,
           created_at,
           updated_at
