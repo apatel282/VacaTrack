@@ -85,12 +85,15 @@ export function calculatePTOSummary(
   let planned = 0;
 
   for (const entry of entries) {
-    const days = countWeekdaysInPeriod(
-      entry.startDate,
-      entry.endDate,
-      bounds.start,
-      bounds.end
-    );
+    // Use stored days if available, otherwise calculate from dates
+    const days = entry.days !== undefined
+      ? entry.days
+      : countWeekdaysInPeriod(
+          entry.startDate,
+          entry.endDate,
+          bounds.start,
+          bounds.end
+        );
 
     if (entry.type === 'used') {
       used += days;

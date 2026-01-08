@@ -49,7 +49,9 @@ function EntryCard({
   onEdit: () => void;
   onDelete: () => void;
 }) {
-  const days = countWeekdays(entry.startDate, entry.endDate);
+  const days = entry.days !== undefined
+    ? entry.days
+    : countWeekdays(entry.startDate, entry.endDate);
   const isUsed = entry.type === 'used';
 
   return (

@@ -10,6 +10,7 @@ export interface PTOEntry {
   type: 'used' | 'planned';
   startDate: string; // ISO date string YYYY-MM-DD
   endDate: string;   // ISO date string YYYY-MM-DD
+  days?: number;     // Manual override for PTO days, if undefined use calculated
   notes: string;
   createdAt: string; // ISO timestamp
   updatedAt: string; // ISO timestamp

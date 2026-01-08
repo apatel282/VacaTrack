@@ -35,6 +35,7 @@ export function PTOForm({
   const [endDate, setEndDate] = useState(today);
   const [type, setType] = useState<'used' | 'planned'>('planned');
   const [notes, setNotes] = useState('');
+  const [manualDays, setManualDays] = useState<number | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -43,11 +44,14 @@ export function PTOForm({
         setEndDate(editingEntry.endDate);
         setType(editingEntry.type);
         setNotes(editingEntry.notes);
+        // Load manual days if entry has them
+        setManualDays(editingEntry.days ?? null);
       } else {
         setStartDate(today);
         setEndDate(today);
         setType('planned');
         setNotes('');
+        setManualDays(null);
       }
     }
   }, [isOpen, editingEntry, today]);
@@ -79,6 +83,7 @@ export function PTOForm({
       type,
       startDate,
       endDate,
+      days: manualDays ?? undefined, // Include manual days if set
       notes: '',
       createdAt: '',
       updatedAt: '',
@@ -90,11 +95,12 @@ export function PTOForm({
 
     const summary = calculatePTOSummary([...filteredEntries, tempEntry], settings);
     return summary.projectedRemaining;
-  }, [startDate, endDate, type, editingEntry, existingEntries, settings]);
+  }, [startDate, endDate, type, editingEntry, existingEntries, settings, manualDays]);
 
   const isNegativeProjection = projectedImpact < 0;
   const isValidDates = startDate && endDate && startDate <= endDate;
-  const isValid = isValidDates && weekdayCount > 0;
+  const hasValidDays = manualDays === null || (manualDays >= 0 && manualDays <= weekdayCount);
+  const isValid = isValidDates && weekdayCount > 0 && hasValidDays;
 
   const handleSave = () => {
     if (!isValid) return;
@@ -105,6 +111,7 @@ export function PTOForm({
       type,
       startDate,
       endDate,
+      days: manualDays ?? undefined, // Store manual days if set
       notes: notes.trim(),
       createdAt: editingEntry?.createdAt || now,
       updatedAt: now,
@@ -162,6 +169,7 @@ export function PTOForm({
                 if (e.target.value > endDate) {
                   setEndDate(e.target.value);
                 }
+                setManualDays(null); // Reset override when dates change
               }}
               className="w-full px-3 py-2 rounded-lg border border-bg-300 dark:border-bg-300 bg-bg-100 dark:bg-bg-100 text-text-100 dark:text-text-100 focus:ring-2 focus:ring-accent-200 focus:border-accent-200"
             />
@@ -174,24 +182,58 @@ export function PTOForm({
               type="date"
               value={endDate}
               min={startDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              onChange={(e) => {
+                setEndDate(e.target.value);
+                setManualDays(null); // Reset override when dates change
+              }}
               className="w-full px-3 py-2 rounded-lg border border-bg-300 dark:border-bg-300 bg-bg-100 dark:bg-bg-100 text-text-100 dark:text-text-100 focus:ring-2 focus:ring-accent-200 focus:border-accent-200"
             />
           </div>
         </div>
 
-        {/* Day Count */}
+        {/* Day Count - Editable */}
         {isValidDates && (
-          <div className="bg-bg-200 dark:bg-bg-200 rounded-lg p-3 text-center">
-            <span className="text-2xl font-bold text-accent-200 dark:text-accent-200">
-              {periodWeekdayCount}
-            </span>
-            <span className="text-text-200 dark:text-text-200 ml-2">
-              PTO day{periodWeekdayCount !== 1 ? 's' : ''}
-              {periodWeekdayCount !== weekdayCount && (
-                <span className="text-xs"> ({weekdayCount} total, {periodWeekdayCount} in period)</span>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="block text-sm font-medium text-text-100 dark:text-text-100">
+                PTO Days
+              </label>
+              {manualDays !== null && (
+                <button
+                  type="button"
+                  onClick={() => setManualDays(null)}
+                  className="text-xs text-accent-200 dark:text-accent-200 hover:underline"
+                >
+                  Reset to calculated
+                </button>
               )}
-            </span>
+            </div>
+
+            <input
+              type="number"
+              min="0"
+              max={weekdayCount}
+              value={manualDays ?? periodWeekdayCount}
+              onChange={(e) => {
+                const value = parseInt(e.target.value, 10);
+                if (!isNaN(value)) {
+                  setManualDays(value);
+                }
+              }}
+              className="w-full px-4 py-3 text-center text-2xl font-bold rounded-lg border border-bg-300 dark:border-bg-300 bg-bg-200 dark:bg-bg-200 text-accent-200 dark:text-accent-200 focus:ring-2 focus:ring-accent-200 focus:border-accent-200"
+            />
+
+            {periodWeekdayCount !== weekdayCount && (
+              <p className="text-xs text-text-200 dark:text-text-200 text-center mt-1">
+                ({weekdayCount} total weekdays, {periodWeekdayCount} in period)
+              </p>
+            )}
+
+            {manualDays !== null && manualDays !== periodWeekdayCount && (
+              <p className="text-xs text-text-200 dark:text-text-200 text-center">
+                Manually adjusted from {periodWeekdayCount} to {manualDays} days
+              </p>
+            )}
           </div>
         )}
 
@@ -210,6 +252,25 @@ export function PTOForm({
             <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-red-700 dark:text-red-300">
               This will exceed your allotment by {Math.abs(projectedImpact)} day{Math.abs(projectedImpact) !== 1 ? 's' : ''}.
+            </p>
+          </div>
+        )}
+
+        {/* Validation Errors */}
+        {manualDays !== null && manualDays > weekdayCount && (
+          <div className="p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-2">
+            <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-red-700 dark:text-red-300">
+              Cannot exceed {weekdayCount} weekday{weekdayCount !== 1 ? 's' : ''} in selected date range.
+            </p>
+          </div>
+        )}
+
+        {manualDays !== null && manualDays < 0 && (
+          <div className="p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-2">
+            <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-red-700 dark:text-red-300">
+              PTO days cannot be negative.
             </p>
           </div>
         )}
