@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 
 interface ModalProps {
@@ -9,10 +9,12 @@ interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, title, children }: ModalProps) {
+  const [isRendered, setIsRendered] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
+      setIsRendered(true);
       // Prevent body scroll on iOS
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
@@ -41,7 +43,11 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
     }
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  const onAnimationEnd = () => {
+    if (!isOpen) setIsRendered(false);
+  };
+
+  if (!isRendered) return null;
 
   return (
     <div
@@ -51,12 +57,18 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
       }}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div 
+        className={`absolute inset-0 bg-black/50 backdrop-blur-sm ${isOpen ? 'animate-fade-in' : 'animate-fade-out'}`}
+        aria-hidden="true"
+      />
 
       {/* Modal */}
       <div
         ref={modalRef}
-        className="relative w-full sm:max-w-md bg-bg-100 dark:bg-bg-100 rounded-t-2xl sm:rounded-2xl shadow-xl max-h-[90vh] overflow-hidden flex flex-col animate-slide-up sm:animate-fade-in"
+        onAnimationEnd={onAnimationEnd}
+        className={`relative w-full sm:max-w-md bg-bg-100 dark:bg-bg-100 rounded-t-2xl sm:rounded-2xl shadow-xl max-h-[90vh] overflow-hidden flex flex-col ${
+          isOpen ? 'animate-slide-up sm:animate-fade-in' : 'animate-slide-down sm:animate-fade-out'
+        }`}
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
         {/* Header */}
